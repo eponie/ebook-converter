@@ -178,11 +178,12 @@ body {
         shutil.rmtree(up_folder)
 
 
-con = ebook_converter()
+
 if len(sys.argv) != 3:
     print 'python epub2vmobi.py path2epub booktitle'
     sys.exit(1)
 else:
+    con = ebook_converter()
     con.epub2vmobi_convert(sys.argv[1], sys.argv[2])
 
 
