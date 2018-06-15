@@ -30,7 +30,7 @@ class ebook_converter:
         else:
             self.logger = logger
         self.path = os.path.dirname(os.path.realpath(__file__))
-        self.conf_path = os.path.realpath(os.path.join(self.path,'ebc.conf'))
+        self.conf_file = os.path.realpath(os.path.join(self.path,'ebc.conf'))
         conf = ConfigParser.ConfigParser()
         conf.read(self.conf_file)
         self.config = conf
@@ -109,7 +109,8 @@ body {
         up_opf = 'book/mobi8/OEBPS/content.opf'
         up_style = 'book/mobi8/OEBPS/Styles/*.css'
         up_Text = 'book/mobi8/OEBPS/Text/'
-        n_vmobi = os.path.realpath(os.path.join(self.path, n_name + '.mobi'))
+        n_vmobi = n_name + '.mobi'
+        b_epub = n_name + '.epub'
 
         # 1. prepare & check
         if not ori_file.endswith('.epub'):
@@ -125,7 +126,9 @@ body {
             self._fail('FAIL convert to mobi')
 
         self.mobi2vmobi_convert(n_mobi, n_name) 
-        os.remove(n_epub)
+        os.rename(n_epub, b_epub)
+        #os.remove(n_epub)
+
 
     def mobi2vmobi_convert(self, ori_file, n_name=''):
         ori_folder = os.path.dirname(ori_file)
@@ -135,7 +138,7 @@ body {
         up_opf = 'book/mobi8/OEBPS/content.opf'
         up_style = 'book/mobi8/OEBPS/Styles/*.css'
         up_Text = 'book/mobi8/OEBPS/Text/'
-        n_vmobi = os.path.realpath(os.path.join(self.path, n_name + '.mobi'))
+        n_vmobi = n_name + '.mobi'
 
         # 0. prepare & check
         if not ori_file.endswith('.mobi'):
@@ -178,12 +181,13 @@ body {
         shutil.rmtree(up_folder)
 
 
-con = ebook_converter()
-if len(sys.argv) != 3:
-    print 'python epub2vmobi.py path2epub booktitle'
-    sys.exit(1)
-else:
-    con.epub2vmobi_convert(sys.argv[1], sys.argv[2])
+if __name__ == "__main__":
+    con = ebook_converter()
+    if len(sys.argv) != 3:
+        print 'python epub2vmobi.py path2epub booktitle'
+        sys.exit(1)
+    else:
+        con.epub2vmobi_convert(sys.argv[1], sys.argv[2])
 
 
 
