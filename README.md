@@ -32,7 +32,7 @@ python epub2vmobi.py epub檔案路徑 書名(中文可)
 
 ```
 python checknew.py epub檔案路徑(wildcard可)
-# e.g. python checknew.py /Users/miew_user/Calibre\ Library/*/*/*.epub 
+# e.g. python checknew.py '/Users/miew_user/Calibre Library/*/*/*.epub' 
 # 找出今天修改過的epub檔案
 ```
 
@@ -75,7 +75,7 @@ python epub2vmobi.py path2epub booktitle
 
 ```
 python checknew.py path2epub(wildcard)
-# e.g. python checknew.py /Users/miew_user/Calibre\ Library/*/*/*.epub 
+# e.g. python checknew.py '/Users/miew_user/Calibre Library/*/*/*.epub'
 # find the files modified today
 ```
 
