@@ -6,15 +6,25 @@ import time
 import datetime
 from epub2vmobi import ebook_converter
 import shutil
+import argparse
 
-calipath = sys.argv[1]
+
+parser = argparse.ArgumentParser(description='check specific path.')
+parser.add_argument('calipath', metavar='epub_path',
+                    help='path of epub. e.g. \'/Users/myname/Calibre Library/*/*/*.epub\'')
+args = parser.parse_args()
+calipath = args.calipath
 con = ebook_converter()
+#for f in glob.glob(calipath):
+#    print f
 for f in glob.glob(calipath):
     mt = int(os.path.getmtime(f))
     today = int(time.mktime(datetime.date.today().timetuple()))
     todo = False
-    if 86400 >= (mt-today) >=0:
+    if 86400 >= abs(today-mt) >=0:
         todo = True
+    #msg = '{}, do'.format(mt) if todo else '{}, skip'.format(mt)
+    #print msg
     if todo:
         #print f, mt
         bn = os.path.basename(f)
